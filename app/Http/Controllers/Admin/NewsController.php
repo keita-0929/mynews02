@@ -33,7 +33,7 @@ class NewsController extends Controller
         $path = $request->file('image')->store('public/image');
         $news->image_path = basename($path);
       } else {
-          $news->image_path = null;
+        $news->image_path = null;
       }
 
       unset($form['_token']);
@@ -80,9 +80,9 @@ class NewsController extends Controller
       $news->fill($news_form)->save();
       
       $history = new History;
-        $history->news_id = $news->id;
-        $history->edited_at = Carbon::now();
-        $history->save();
+      $history->news_id = $news->id;
+      $history->edited_at = Carbon::now();
+      $history->save();
 
       return redirect('admin/news/');
   }
