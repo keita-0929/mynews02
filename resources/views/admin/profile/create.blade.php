@@ -1,5 +1,4 @@
 @extends('layouts.profile')
-
 @section('title','My プロフィール')
 
 @section('content')
@@ -25,8 +24,8 @@
                     <div class="form-group row">
                         <label class="col-md-2">性別(gender)</label>
                         <div class="col-md-10">
-                            男性<input type="radio" name="gender" value="male">
-                            女性<input type="radio" name="gender" value="female">
+                                男性<input type="radio" name="gender" value="male" >
+                                女性<input type="radio" name="gender" value="female" >
                         </div>
                     </div>
                     <div class="form-group row">

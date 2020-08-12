@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\profile;
+use App\Profile;
+
+use App\ProfileHistory;
+
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -17,7 +21,7 @@ class ProfileController extends Controller
     {
         // Varidationを行う
         $this->validate($request, profile::$rules);
-        $profile = new profile;
+        $profile = new Profile;
         $form = $request->all();
         
         
@@ -48,7 +52,26 @@ class ProfileController extends Controller
 
       // 該当するデータを上書きして保存する
       $profile->fill($profile_form)->save();
-        return redirect('admin/profile/edit');
+      
+      $profile_history = new ProfileHistory;
+        $profile_history->profile_id = $profile->id;
+        $profile_history->edited_at = Carbon::now();
+        $profile_history->save();
+        return redirect()->route('admin.profile.edit', ['id' => $profile->id]);
+        //return redirect('admin/profile/edit');
     }
     
+          // 以下を追記
+      public function index(Request $request)
+      {
+          $cond_name = $request->cond_name;
+          if ($cond_name != '') {
+              // 検索されたら検索結果を取得する
+              $posts = Profile::where('title', $cond_name)->get();
+          } else {
+              // それ以外はすべてのニュースを取得する
+              $posts = Profile::all();
+          }
+          return view('admin.profile.index', ['posts' => $posts, 'cond_name' => $cond_name]);
+      }
 }

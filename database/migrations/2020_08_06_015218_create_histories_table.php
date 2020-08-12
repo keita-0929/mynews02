@@ -14,7 +14,7 @@ class CreateHistoriesTable extends Migration
     public function up()
     {
         Schema::create('histories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
           
             $table->timestamps();
         });
