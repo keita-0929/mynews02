@@ -46,3 +46,5 @@ Route::group(['prefix' => 'admin'], function() {
 
 Route::get('/', 'NewsController@index');
 
+Route::get('/profile', 'ProfileController@index');
+
