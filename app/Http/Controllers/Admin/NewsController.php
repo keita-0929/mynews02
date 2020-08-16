@@ -32,8 +32,8 @@ class NewsController extends Controller
       // formに画像があれば、保存する
       \Debugbar::info($form);
       if (isset($form['image'])) {
-        $path = $request->file('image')->store('public/image');
-        $news->image_path = basename($path);
+        $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+        $news->image_path = Storage::disk('s3')->url($path);
       } else {
         $news->image_path = null;
       }
