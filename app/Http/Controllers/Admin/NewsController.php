@@ -16,7 +16,6 @@ class NewsController extends Controller
 {
   public function add()
   {
-      \Debugbar::info("xxx");
       return view('admin.news.create');
   }
 
